@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema Interactivo de Resolución Matricial</title>
+<script>
+(function(){
+  var t;
+  try{t=localStorage.getItem('matrices-tema')}catch(e){}
+  if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  document.documentElement.dataset.theme=t;
+})();
+</script>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+
+<aside class="lateral">
+<div class="marca">
+<h1>Sistema Interactivo de Resolución Matricial</h1>
+</div>
+
+<nav class="tabs" role="tablist" aria-orientation="vertical" aria-label="Módulos">
+<button role="tab" id="t-sistema" aria-selected="true" aria-controls="p-sistema"><span class="n">01</span>Sistema de ecuaciones</button>
+<button role="tab" id="t-inversa" aria-selected="false" aria-controls="p-inversa"><span class="n">02</span>Matriz inversa</button>
+</nav>
+
+<section class="hist">
+<h2>Historial</h2>
+<div id="historial"></div>
+<button class="act" id="borrar-hist">Borrar historial</button>
+</section>
+</aside>
+
+<main>
+<p class="lead">Resuelve sistemas de ecuaciones lineales y calcula matrices inversas con Gauss-Jordan. Puedes escribir enteros, decimales (1.5) o fracciones (3/4).</p>
+
+<section class="panel" id="p-sistema" role="tabpanel" aria-labelledby="t-sistema">
+<p class="kicker">Módulo 1</p>
+<h2 class="titulo">Sistema de ecuaciones</h2>
+<div class="dims">
+<label>Filas (Ecuaciones)<input id="filas-sistema" type="number" min="1" max="8"></label>
+<label>Columnas (Incógnitas)<input id="cols-sistema" type="number" min="1" max="8"></label>
+<button class="act" id="crear-sistema">Crear tabla</button>
+</div>
+<div class="scroll"><div class="grid" id="g-sistema"></div></div>
+<button class="act main" id="go-sistema">Resolver con Gauss-Jordan</button>
+<div class="err" id="e-sistema" role="alert"></div>
+<div id="o-sistema"></div>
+</section>
+
+<section class="panel" id="p-inversa" role="tabpanel" aria-labelledby="t-inversa" hidden>
+<p class="kicker">Módulo 2</p>
+<h2 class="titulo">Matriz inversa</h2>
+<div class="dims">
+<label>Dimensión n (matriz n × n)<input id="filas-inversa" type="number" min="1" max="8"></label>
+<button class="act" id="crear-inversa">Crear tabla</button>
+</div>
+<div class="scroll"><div class="grid" id="g-inversa"></div></div>
+<button class="act main" id="go-inversa">Calcular inversa</button>
+<div class="err" id="e-inversa" role="alert"></div>
+<div id="o-inversa"></div>
+</section>
+</main>
+
+</div>
+<button class="tema" id="btn-tema" type="button"><span aria-hidden="true">◐</span></button>
+<script src="js/app.js"></script>
+</body>
+</html>
